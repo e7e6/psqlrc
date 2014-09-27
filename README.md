@@ -1,5 +1,5 @@
 This repository will mostly contain configuration files for:
-- window manager (i3)
+- window manager
 - postgres
-- bash
-- vim
+- bash/zsh
+- emacs
