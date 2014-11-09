@@ -1,0 +1,169 @@
+--------------------------------------------
+-- psql configuration file 
+--------------------------------------------
+
+\set QUIET 1
+
+--------------------------------------------
+-- Prompts
+-- Prompt1 / Prompt2 / Prompt3
+-- %M : server
+-- %m : host name
+-- %> : port
+-- %n : user
+-- %/ : current database
+-- %~ : like %/ but ~ for default database
+-- %# : '#' if superuser, '>' otherwise
+-- %R
+-- %x
+-- %[...%] : terminal control characters
+-- Examples
+-- \set PROMPT1 '%M:%/ '  myserver:mydatabase
+-- \set PROMPT1 '%M:%/ '  myserver:mydatabase
+-- \set PROMPT1 '%M:%/ '  myserver:mydatabase
+-- \set PROMPT1 '%M:%/ '  myserver:mydatabase
+-- \set PROMPT1 '%M:%/ '  myserver:mydatabase
+-- \set PROMPT1 '%M:%/ '  myserver:mydatabase
+
+\set PROMPT1 '%n@%/ %# '
+\set PROMPT2 '%# '
+-- \set PROMPT3 ''
+
+--------------------------------------------
+-- Timing
+-- Print the time each query took
+-- Values: on off (or without values, toggles)
+
+\timing
+
+--------------------------------------------
+-- tuples
+-- Values: 
+
+--\t
+--\pset tuples_only
+
+--------------------------------------------
+-- nulls
+-- how to display null values
+
+\pset null '[NULL]'
+
+--------------------------------------------
+-- linestyle
+-- border drawing style
+-- values:ascii,old-ascii,unicode
+
+\pset linestyle unicode
+
+--------------------------------------------
+-- border
+-- number of borders and lines for the tables
+-- values:number
+
+\pset border 2
+
+--------------------------------------------
+-- Extended display
+-- Values auto (>=9.2), on, off
+
+\x auto
+
+--------------------------------------------
+-- AUTOCOMMIT
+-- Values: on off
+
+-- \set AUTOCOMMIT on
+
+--------------------------------------------
+-- COMP_KEYWORD_CASE
+-- Values: lower,upper,preserve-lower,preserve-upper
+
+\set COMP_KEYWORD_CASE upper
+
+--------------------------------------------
+-- ENCODING
+-- Values: 
+
+--------------------------------------------
+-- HISTFILE
+-- File used to store history list
+-- Values: 
+
+--\set HISTFILE ~/.psql_history- :DBNAME
+
+--------------------------------------------
+-- HISTSIZE
+-- Values: numeric, defaults to 500
+
+--\set HISTSIZE 500
+
+--------------------------------------------
+-- HISTCONTROL
+-- Values: ignorespace,ignoredups,ignoreboth
+
+\set HISTCONTROL ignoreboth
+
+
+--------------------------------------------
+-- IGNOREEOF
+-- number of EOF (ctrl-D) to ignore before terminating
+-- Values: 
+
+-- \set IGNOREEOF 2
+
+--------------------------------------------
+-- ON_ERROR_ROLLBACK
+-- Values: on,interactive,off
+
+--------------------------------------------
+-- ON_ERROR_STOP
+-- Values: 
+
+--------------------------------------------
+-- SINGLELINE
+-- newline terminates an SQL command
+-- Values: 
+
+--------------------------------------------
+-- SINGLESTEP
+-- single step mode: to debug scripts
+-- Values: 
+
+--------------------------------------------
+-- VERBOSITY
+-- for error reports
+-- Values: default,verbose,terse
+
+\set VERBOSITY verbose
+
+--------------------------------------------
+-- Custom variables and shortcuts
+
+\set eav 'EXPLAIN ANALYZE VERBOSE'
+
+--------------------------------------------
+-- Custom queries
+
+-- number of connected backends
+\set backends ''
+
+-- running queries (9.0)
+-- \set queries  ''
+
+-- running queries (9.3)
+\set queries  ''
+
+-- server uptime
+\set uptime   ''
+
+\set kill     ''
+
+-- kill transactions that have been "idle in transaction" for more than 10 minutes
+\set kill_old ''
+
+--------------------------------------------
+
+\set QUIET 0
+
+\echo ''
