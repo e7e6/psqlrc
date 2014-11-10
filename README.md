@@ -1,5 +1,1 @@
-This repository will mostly contain configuration files for:
-- window manager
-- postgres
-- bash/zsh
-- emacs
+A .psqlrc file to be used with PostgreSQL command line interface, psql. Should be placed in the user's home directory.
