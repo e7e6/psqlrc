@@ -169,13 +169,11 @@
 -- buffer cache hit ratio
 \set buffer-cache-hit-ratio 'select datname, blks_hit::float/(blks_hit+blks_read) as hit_ratio from pg_stat_database where blks_read+blks_hit <> 0;'
 
-
 --------------------------------------------
-
 \set QUIET 0
 
-\echo ----------------------------------------------------
-\echo Custom queries:
+\echo '----------------------------------------------------'
+\echo 'Custom queries:'
 \echo '\t' 'backends'
 \echo '\t' 'buffer-cache-hit-ratio'
 \echo '\t' 'database-size'
