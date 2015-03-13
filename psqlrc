@@ -152,31 +152,32 @@
 -- \set queries  'select current_timestamp - query_start as runtime,datname,usename,current_query from pg_stat_activity where current_query != \'<IDLE>\' order by 1 desc;'
 
 -- running queries (9.3)
-\set queries  ''
+\set queries  'select current_timestamp - query_start as runtime,pid,datname,usename,query from pg_stat_activity where query != \'<IDLE>\' order by 1 desc; '
 
 -- server uptime
 \set uptime   'select date_trunc(\'second\',current_timestamp - pg_postmaster_start_time()) as uptime;'
 
--- kill transactions that have been "idle in transaction" for more than 10 minutes
-\set kill-old-transactions ''
+-- kill transactions that have been "idle in transaction" for more than 10 minutes (9.3)
+\set kill_old_transactions 'select count(pg_terminate_backend(pid)) as nb_killed_proc from pg_stat_activity where query = \'<IDLE> in transaction\' and current_timestamp - query_start > \'5 min\';
 
 -- table size
-\set table-size 'select nspname || \'.\' || relname AS \"relation\", pg_size_pretty(pg_relation_size(C.oid)) AS "size" from pg_class C left join pg_namespace N on (N.oid = C.relnamespace) where nspname not in (\'pg_catalog\', \'information_schema\') order by pg_relation_size(C.oid) desc limit 20;'
+\set table_size 'select nspname || \'.\' || relname AS \"relation\", pg_size_pretty(pg_relation_size(C.oid)) AS "size" from pg_class C left join pg_namespace N on (N.oid = C.relnamespace) where nspname not in (\'pg_catalog\', \'information_schema\') order by pg_relation_size(C.oid) desc limit 20;'
 
 -- database size
-\set database-size 'SELECT d.datname AS Name, pg_catalog.pg_get_userbyid(d.datdba) AS Owner, CASE WHEN pg_catalog.has_database_privilege(d.datname, \'CONNECT\') THEN pg_catalog.pg_size_pretty(pg_catalog.pg_database_size(d.datname)) ELSE \'No Access\' END AS Size FROM pg_catalog.pg_database d ORDER BY CASE WHEN pg_catalog.has_database_privilege(d.datname, \'CONNECT\') THEN pg_catalog.pg_database_size(d.datname) ELSE NULL END DESC LIMIT 20;' 
+\set database_size 'SELECT d.datname AS Name, pg_catalog.pg_get_userbyid(d.datdba) AS Owner, CASE WHEN pg_catalog.has_database_privilege(d.datname, \'CONNECT\') THEN pg_catalog.pg_size_pretty(pg_catalog.pg_database_size(d.datname)) ELSE \'No Access\' END AS Size FROM pg_catalog.pg_database d ORDER BY CASE WHEN pg_catalog.has_database_privilege(d.datname, \'CONNECT\') THEN pg_catalog.pg_database_size(d.datname) ELSE NULL END DESC LIMIT 20;' 
 
 -- buffer cache hit ratio
-\set buffer-cache-hit-ratio 'select datname, blks_hit::float/(blks_hit+blks_read) as hit_ratio from pg_stat_database where blks_read+blks_hit <> 0;'
+\set buffer_cache_hit_ratio 'select datname, blks_hit::float/(blks_hit+blks_read) as hit_ratio from pg_stat_database where blks_read+blks_hit <> 0;'
 
 --------------------------------------------
 \set QUIET 0
 
 \echo '----------------------------------------------------'
 \echo 'Custom queries:'
-\echo '\t' 'backends'
-\echo '\t' 'buffer-cache-hit-ratio'
-\echo '\t' 'database-size'
-\echo '\t' 'queries'
-\echo '\t' 'table-size'
-\echo '\t' 'uptime'
+\echo '\t' ':backends'
+\echo '\t' ':buffer_cache_hit_ratio'
+\echo '\t' ':database_size'
+\echo '\t' ':kill_old_transactions'
+\echo '\t' ':queries'
+\echo '\t' ':table_size'
+\echo '\t' ':uptime'
